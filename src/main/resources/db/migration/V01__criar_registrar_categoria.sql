@@ -9,8 +9,8 @@ ALTER TABLE s_categoria OWNER TO postgres;
 
 CREATE TABLE t_categoria
 (
-  id_categoria integer NOT NULL,
-  categoria character varying(40),
+  id_categoria BIGINT NOT NULL,
+  nome character varying(40),
   CONSTRAINT pk_grupo PRIMARY KEY (id_categoria)
 )
 WITH (

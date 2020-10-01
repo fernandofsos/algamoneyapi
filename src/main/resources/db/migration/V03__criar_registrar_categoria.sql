@@ -1,0 +1,1 @@
+ALTER TABLE public.t_categoria ALTER COLUMN nome SET NOT NULL;
