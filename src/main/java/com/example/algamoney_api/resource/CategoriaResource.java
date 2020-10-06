@@ -33,21 +33,18 @@ public class CategoriaResource {
 	}
 	
 	@PostMapping
-	public void  criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
+	public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
 		
 		Categoria categoriaSalva = categoriaRepository.save(categoria);
 				
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{idCategoria}")
 				.buildAndExpand(categoriaSalva.getIdCategoria()).toUri();
-		
-		  
+				  
 		response.setHeader("Location", uri.toASCIIString());
-			
-	}
-	
 		
-	
-	
+		return ResponseEntity.created(uri).body(categoriaSalva);	
+	}
+		
 	
 	@GetMapping("/{idCategoria}") 
 	public ResponseEntity<Categoria> buscarPeloCodigo(@PathVariable Long idCategoria) {
@@ -55,7 +52,6 @@ public class CategoriaResource {
 		Optional<Categoria> objCategoria = categoriaRepository.findById(idCategoria);
 		
 		if (objCategoria.isPresent()) {
-			
 			return  ResponseEntity.ok(objCategoria.get());
 		}else {
 			return ResponseEntity.notFound().build();
