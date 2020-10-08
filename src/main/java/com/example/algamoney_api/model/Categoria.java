@@ -9,6 +9,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class Categoria {
 	@Getter @Setter
 	@NotEmpty
 	@NotNull
+	@Size(min = 3, max = 40)
 	private String nome;
 	
 }

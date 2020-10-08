@@ -40,7 +40,7 @@ public class CategoriaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{idCategoria}")
 				.buildAndExpand(categoriaSalva.getIdCategoria()).toUri();
 				  
-		response.setHeader("Location", uri.toASCIIString());
+		//response.setHeader("Location", uri.toASCIIString());
 		
 		return ResponseEntity.created(uri).body(categoriaSalva);	
 	}
