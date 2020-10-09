@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -37,7 +38,6 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 			return handleExceptionInternal(ex,erros, headers, HttpStatus.BAD_REQUEST, request);
 	}	
 	
-	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -47,7 +47,31 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 			// TODO Auto-generated method stub
 			return super.handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}	
+	
+	@ExceptionHandler({ArithmeticException.class})
+	public ResponseEntity<Object> handleArithmeticException(ArithmeticException ex, WebRequest request ){
+
+		String mensagemUsuario = messageSorce.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
+		String mensagemDesenvolvedor = ex.toString();
+
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario,mensagemDesenvolvedor));
 		
+		return handleExceptionInternal(ex,erros, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+		
+	}
+	
+	@ExceptionHandler({XMenorQUeYException.class})
+	public ResponseEntity<Object> handleXMenorQUeYException(XMenorQUeYException ex, WebRequest request ){
+
+		String mensagemUsuario = messageSorce.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
+		String mensagemDesenvolvedor = ex.getMessage();
+
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario,mensagemDesenvolvedor));
+		
+		return handleExceptionInternal(ex,erros, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+		
+	}
+	
 	private List<Erro> criarListaErros(BindingResult bindingResult){
 		 List<Erro> erros = new ArrayList<>();
 
