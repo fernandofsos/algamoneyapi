@@ -1,17 +1,21 @@
 package com.example.algamoney_api.resource;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +25,7 @@ import com.example.algamoney_api.exceptionhandler.XMenorQUeYException;
 import com.example.algamoney_api.model.Pessoa;
 import com.example.algamoney_api.repository.PessoaRepository;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaResource {
@@ -44,9 +49,9 @@ public class PessoaResource {
 		if (x < y)
 			throw new XMenorQUeYException();
 		
-		Pessoa pessoaSalva = pessoaRepository.save(PessoaDto.mapToPessoa(pessoaDto));
+		//Pessoa pessoaSalva = pessoaRepository.save(PessoaDto.mapToPessoa(pessoaDto));
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
+		return ResponseEntity.status(HttpStatus.CREATED).body(null);
 		
 	}
 	
@@ -55,6 +60,24 @@ public class PessoaResource {
 		
 		pessoaRepository.deleteById(idPessoa);
 		
+	}
+	
+	@PutMapping("/{idPessoa}")
+	public ResponseEntity<Pessoa> ayualizar(@PathVariable Long idPessoa, @Valid @RequestBody PessoaDto pessoaDto ){
+		
+		Pessoa p = new Pessoa();
+		
+		Optional<Pessoa> objPessoa = pessoaRepository.findById(idPessoa);
+		
+		p = objPessoa.get();
+		
+		BeanUtils.copyProperties(pessoaDto , p, "idPessoa");
+		
+		System.out.println(p);
+		
+		 pessoaRepository.save(p);
+						
+		return  ResponseEntity.status(HttpStatus.CREATED).body(p);
 	}
 	
 	

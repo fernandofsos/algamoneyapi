@@ -23,7 +23,6 @@ public class Endereco {
 	
 	@Getter @Setter
 	@NotNull
-	@NotEmpty
 	@Column(name = "numero")
 	private Integer numero;
 	
