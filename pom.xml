@@ -8,15 +8,16 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.algaworks.algamoney_api</groupId>
-	<artifactId>algamoney_api</artifactId>
+	<groupId>com.algaworks.algamoneyapi</groupId>
+	<artifactId>algamoneyapi</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>algamoney_api</name>
+	<name>algamoneyapi</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>11</java.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
 
 	<dependencies>
