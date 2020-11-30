@@ -11,19 +11,20 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-
+@AllArgsConstructor
 @ToString
 @EqualsAndHashCode
 @Entity
 @Table(name = "t_categoria")
 @SequenceGenerator(name = "S_CATEGORIA", sequenceName = "S_CATEGORIA", allocationSize = 1)
 public class Categoria {
-
+	
 	@Id
 	@Getter @Setter
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "S_CATEGORIA")
