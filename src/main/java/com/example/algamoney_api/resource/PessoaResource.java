@@ -1,6 +1,7 @@
 package com.example.algamoney_api.resource;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.algamoney_api.dto.PessoaDto;
@@ -39,6 +41,32 @@ public class PessoaResource {
 		
 		return pessoaRepository.findAll();
 	}
+	
+	@GetMapping("/teste")
+	//public ResponseEntity<PessoaDto> buscaPessoa(@Valid @RequestParam String idCodigoPessoa, 
+	//		                                            @RequestParam String nome){
+				
+	public ResponseEntity<PessoaDto> buscaPessoa(@Valid @RequestParam Map<String, String> p){	
+	    //System.out.println( idCodigoPessoa + " - " + nome);
+	    
+	     String key = p.get("idCodigoPessoa");
+	     String value = p.get("nome");
+	     String flgAtivo = p.get("flgAtivo");
+	     
+	     System.out.println( key + " - " + value + "-" + flgAtivo);
+//	    for (Map.Entry<String, String> entry : param.entrySet()) {
+//	        String key = entry.getKey();
+//	        String value = entry.getValue();
+//	        System.out.println(String.format("key: %s | value: %s", key, value));
+//	    }
+//		
+		return null;
+	}
+	
+	
+	
+	
+	
 	
 	@PostMapping                      
 	private ResponseEntity<Pessoa> criar(@Valid @RequestBody PessoaDto pessoaDto, HttpServletResponse response) throws Exception {
