@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,6 +38,21 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 			
 			return handleExceptionInternal(ex,erros, headers, HttpStatus.BAD_REQUEST, request);
 	}	
+	
+	
+	@Override
+	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		// TODO Auto-generated method stub
+		String mensagemUsuario = messageSorce.getMessage("mensagem.naosuportada", null, LocaleContextHolder.getLocale());
+		String mensagemDesenvolvedor = ex.getMessage();
+
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario,mensagemDesenvolvedor));
+		
+		return handleExceptionInternal(ex,erros, headers, HttpStatus.BAD_REQUEST, request);
+		//return super.handleHttpRequestMethodNotSupported(ex, headers, status, request);
+	}
+
 	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -83,6 +99,7 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 		 
 		 return erros;
 	}
+	
 	
 	protected static class Erro {
 		

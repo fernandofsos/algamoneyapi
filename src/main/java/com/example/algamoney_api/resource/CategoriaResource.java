@@ -53,6 +53,12 @@ public class CategoriaResource {
 	@GetMapping("/{idCategoria}") 
 	public ResponseEntity<CategoriaDto> buscarPeloCodigo(@PathVariable Long idCategoria) {
 		
+		
+		int x = 0;
+		int y = 0;
+		
+		int total = x/y;
+		
 		CategoriaDto categoriaDto = new CategoriaDto();
 		Optional<Categoria> optcategoria = categoriaRepository.findById(idCategoria);
 						

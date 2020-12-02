@@ -1,6 +1,8 @@
 package com.example.algamoney_api.dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.example.algamoney_api.model.Categoria;
 
@@ -14,6 +16,8 @@ public class CategoriaDto {
 	
 	@Getter @Setter
 	@NotNull
+	@NotEmpty
+	@Size(min = 3, max = 50)
 	private String nome;
 	
 	public Categoria transformaParaObjeto() {
