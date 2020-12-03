@@ -28,6 +28,11 @@ public class EnderecoDto {
 	@NotNull
 	@NotEmpty
 	private String logradouro;
+	
+	@Getter @Setter
+	@NotNull
+	@NotEmpty
+	private String cidade;
 		
 	@Getter @Setter
 	@NotNull
